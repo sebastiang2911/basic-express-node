@@ -1,39 +1,61 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="REST API built with Node.js, Express, and TypeScript." />
-    <title>REST Server | Node.js + TypeScript</title>
-    <style>
-      :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background: #09111f; color: #e5edf8; }
-      * { box-sizing: border-box; }
-      body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 32px 20px; background: radial-gradient(circle at 15% 15%, #183765 0, transparent 32%), radial-gradient(circle at 85% 80%, #153f35 0, transparent 30%), #09111f; }
-      main { width: min(860px, 100%); }
-      .eyebrow { color: #63e6be; font-size: .8rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-      h1 { margin: 10px 0 14px; font-size: clamp(2.4rem, 8vw, 5rem); line-height: .98; }
-      .lead { max-width: 650px; color: #aebdd1; font-size: 1.08rem; line-height: 1.7; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 34px; }
-      article { padding: 20px; border: 1px solid #263852; border-radius: 16px; background: rgb(13 27 46 / 78%); box-shadow: 0 16px 50px rgb(0 0 0 / 20%); }
-      h2 { margin: 0 0 12px; font-size: 1rem; }
-      p { margin: 0; }
-      code { color: #7ee7c5; font-family: "SFMono-Regular", Consolas, monospace; }
-      .methods { display: flex; flex-wrap: wrap; gap: 8px; }
-      .methods span { padding: 5px 8px; border-radius: 6px; background: #172b47; color: #c6d5e8; font: 700 .72rem "SFMono-Regular", Consolas, monospace; }
-      a { color: #7ee7c5; text-decoration: none; }
-      a:hover { text-decoration: underline; }
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Documentation for the Node.js, Express, TypeScript and MongoDB REST API.">
+  <meta name="theme-color" content="#07111f">
+  <title>REST Server | API Docs</title>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,sans-serif;background:#07111f;color:#f5f7fb;--muted:#9eabc0;--panel:rgb(15 29 49/.82);--border:rgb(148 163 184/.18);--accent:#62e6bd;--blue:#77a9ff}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{min-height:100vh;margin:0;background:radial-gradient(circle at 12% 8%,rgb(40 91 157/.34),transparent 30rem),radial-gradient(circle at 88% 84%,rgb(23 105 82/.28),transparent 32rem),#07111f}
+    a{color:inherit}.shell{width:min(1100px,calc(100% - 40px));margin:auto}nav,footer{display:flex;align-items:center;justify-content:space-between;padding:24px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:800;text-decoration:none}.mark{display:grid;width:34px;height:34px;place-items:center;border:1px solid rgb(98 230 189/.35);border-radius:10px;background:rgb(98 230 189/.12);color:var(--accent)}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem}.status:before{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent);content:""}
+    header{padding:84px 0 70px}.eyebrow{margin:0 0 16px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{max-width:800px;margin:0;font-size:clamp(3rem,9vw,6.5rem);letter-spacing:-.065em;line-height:.94}.gradient{background:linear-gradient(100deg,#fff 25%,#8db6ff 65%,var(--accent));background-clip:text;color:transparent}.lead{max-width:660px;margin:26px 0 0;color:var(--muted);font-size:clamp(1rem,2vw,1.18rem);line-height:1.75}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.button{padding:12px 17px;border:1px solid var(--border);border-radius:10px;background:rgb(255 255 255/.04);font-weight:750;text-decoration:none}.button.primary{border-color:transparent;background:var(--accent);color:#062018}.button:hover{transform:translateY(-1px);filter:brightness(1.08)}
+    section{padding:34px 0 80px}.section-title{margin:0 0 8px;font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.035em}.section-copy{margin:0 0 28px;color:var(--muted)}.endpoint-list{display:grid;gap:12px}.endpoint{display:grid;grid-template-columns:82px minmax(220px,1fr) 1.5fr;align-items:center;gap:18px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--panel);backdrop-filter:blur(14px)}.method{width:max-content;padding:5px 8px;border-radius:6px;font:800 .72rem ui-monospace,monospace}.get{background:rgb(119 169 255/.14);color:var(--blue)}.post{background:rgb(98 230 189/.12);color:var(--accent)}.put{background:rgb(251 191 36/.13);color:#fbc65d}.delete{background:rgb(248 113 113/.13);color:#ff9999}code{color:#d9e7fb;font-family:SFMono-Regular,Consolas,monospace;font-size:.88rem}.endpoint p{margin:0;color:var(--muted);font-size:.92rem}
+    .example-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px}.card{padding:24px;border:1px solid var(--border);border-radius:16px;background:var(--panel)}.card h3{margin:0 0 12px}.card p{margin:0;color:var(--muted);line-height:1.65}pre{height:100%;margin:0;overflow:auto;padding:24px;border:1px solid var(--border);border-radius:16px;background:#050c16;line-height:1.65}.key{color:#8db6ff}.string{color:#8be8c8}footer{border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+    @media(max-width:720px){.shell{width:calc(100% - 28px)}header{padding:60px 0 44px}.endpoint{grid-template-columns:70px 1fr}.endpoint p{grid-column:1/-1}.example-grid{grid-template-columns:1fr}footer{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav aria-label="Main navigation"><a class="brand" href="/"><span class="mark" aria-hidden="true">⌁</span>REST Server</a><span class="status">API online</span></nav>
     <main>
-      <p class="eyebrow">Server online</p>
-      <h1>REST Server</h1>
-      <p class="lead">Educational REST API built with Node.js, Express, and TypeScript. It separates the server, routes, and controllers to keep each responsibility clear.</p>
-      <section class="grid" aria-label="Project information">
-        <article><h2>Main endpoint</h2><p><a href="/api/users"><code>/api/users</code></a></p></article>
-        <article><h2>Available methods</h2><div class="methods" aria-label="HTTP methods"><span>GET</span><span>POST</span><span>PUT</span><span>PATCH</span><span>DELETE</span></div></article>
-        <article><h2>Request flow</h2><p><code>index → Server → routes → controllers</code></p></article>
+      <header>
+        <p class="eyebrow">Node.js · Express · TypeScript · MongoDB</p>
+        <h1>Build, validate, <span class="gradient">ship.</span></h1>
+        <p class="lead">A clean REST API for user management with database validation, encrypted passwords, partial updates, pagination, and soft deletes.</p>
+        <div class="actions"><a class="button primary" href="/api/users">View API response</a><a class="button" href="#endpoints">Explore endpoints</a></div>
+      </header>
+      <section id="endpoints" aria-labelledby="endpoints-title">
+        <h2 class="section-title" id="endpoints-title">Users API</h2>
+        <p class="section-copy">Base URL: <code>/api/users</code></p>
+        <div class="endpoint-list">
+          <article class="endpoint"><span class="method get">GET</span><code>/api/users?from=0&amp;limit=5</code><p>List active users with pagination.</p></article>
+          <article class="endpoint"><span class="method post">POST</span><code>/api/users</code><p>Create a user and encrypt the password.</p></article>
+          <article class="endpoint"><span class="method put">PUT</span><code>/api/users/:id</code><p>Validate the MongoDB ID and update a user.</p></article>
+          <article class="endpoint"><span class="method put">PATCH</span><code>/api/users/:id</code><p>Partially update the supplied user fields.</p></article>
+          <article class="endpoint"><span class="method delete">DELETE</span><code>/api/users/:id</code><p>Deactivate a user with a soft delete.</p></article>
+        </div>
+      </section>
+      <section aria-labelledby="request-title">
+        <h2 class="section-title" id="request-title">Create a user</h2>
+        <p class="section-copy">Use a unique email, a password of at least six characters, and a registered role.</p>
+        <div class="example-grid">
+          <article class="card"><h3>Built-in safeguards</h3><p>Email format and uniqueness checks, database role validation, bcrypt password hashing, and sanitized JSON responses.</p></article>
+          <pre aria-label="JSON request example"><code>{
+  <span class="key">"name"</span>: <span class="string">"Sebastian"</span>,
+  <span class="key">"email"</span>: <span class="string">"sebastian@example.com"</span>,
+  <span class="key">"password"</span>: <span class="string">"Test1234"</span>,
+  <span class="key">"role"</span>: <span class="string">"ADMIN_ROLE"</span>
+}</code></pre>
+        </div>
+      </section>
+      <section aria-labelledby="performance-title">
+        <h2 class="section-title" id="performance-title">Parallel by design</h2>
+        <p class="section-copy"><code>Promise.all</code> runs the user query and total count concurrently. Because neither operation depends on the other, this reduces response time while keeping both results synchronized—and rejects the request if either operation fails.</p>
       </section>
     </main>
-  </body>
+    <footer><span>REST Server API</span><span>Express + TypeScript + Mongoose</span></footer>
+  </div>
+</body>
 </html>

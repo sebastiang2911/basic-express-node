@@ -1,7 +1,9 @@
+import "colors";
 import express, { Application } from "express";
 import cors from "cors";
 import path from "node:path";
 import router from "../routes/users.ts";
+import { dbConnection } from "../database/config.ts";
 
 export default class Server {
   private readonly app: Application;
@@ -11,6 +13,9 @@ export default class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT ?? "8080";
+
+    // Connect DB
+    this.connectDB();
     //Middlewares
     this.middlewares();
     //Routes
@@ -18,12 +23,18 @@ export default class Server {
   }
 
   middlewares() {
+    //init DB
+
     //CORS
     this.app.use(cors());
     // READ and WRITE
     this.app.use(express.json());
     // Static Files
     this.app.use(express.static("public"));
+  }
+
+  async connectDB() {
+    await dbConnection();
   }
 
   routes() {
@@ -37,7 +48,7 @@ export default class Server {
 
   listen() {
     this.app.listen(this.port, () => {
-      console.log(`Port listening in ${this.port}`);
+      console.log(`Port listening in ${this.port}`.america);
     });
   }
 }
