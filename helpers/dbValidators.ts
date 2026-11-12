@@ -1,5 +1,4 @@
-import Role from "../models/role.ts";
-import User from "../models/user.ts";
+import { Role, User } from "@models";
 
 export const isValidRole = async (role = "") => {
   const existRole = await Role.findOne({ role });

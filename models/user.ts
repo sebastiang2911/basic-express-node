@@ -1,6 +1,18 @@
-import { Schema, model } from "mongoose";
+import { HydratedDocument, Schema, model } from "mongoose";
 
-const UserSchema = new Schema({
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
+  image?: string;
+  role: string;
+  state: boolean;
+  google: boolean;
+}
+
+export type UserDocument = HydratedDocument<IUser>;
+
+const UserSchema = new Schema<IUser>({
   name: {
     type: String,
     required: [true, "The name is required"],
@@ -34,7 +46,8 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.toJSON = function () {
-  const { __v, password, ...userWithoutPassword } = this.toObject();
+  const { __v, password, _id, ...userWithoutPassword } = this.toObject();
+  userWithoutPassword.uid = _id;
   return userWithoutPassword;
 };
 

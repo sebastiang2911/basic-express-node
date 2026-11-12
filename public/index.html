@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Documentation for the Node.js, Express, TypeScript and MongoDB REST API.">
+  <meta name="description" content="Documentation for the JWT-secured Node.js, Express, TypeScript and MongoDB REST API.">
   <meta name="theme-color" content="#07111f">
   <title>REST Server | API Docs</title>
   <style>
@@ -23,18 +23,27 @@
       <header>
         <p class="eyebrow">Node.js · Express · TypeScript · MongoDB</p>
         <h1>Build, validate, <span class="gradient">ship.</span></h1>
-        <p class="lead">A clean REST API for user management with database validation, encrypted passwords, partial updates, pagination, and soft deletes.</p>
+        <p class="lead">A typed user-management API with JWT authentication, role authorization, encrypted passwords, partial updates, pagination, and soft deletes.</p>
         <div class="actions"><a class="button primary" href="/api/users">View API response</a><a class="button" href="#endpoints">Explore endpoints</a></div>
       </header>
       <section id="endpoints" aria-labelledby="endpoints-title">
-        <h2 class="section-title" id="endpoints-title">Users API</h2>
-        <p class="section-copy">Base URL: <code>/api/users</code></p>
+        <h2 class="section-title" id="endpoints-title">API endpoints</h2>
+        <p class="section-copy">Base URL: <code>/api</code></p>
         <div class="endpoint-list">
+          <article class="endpoint"><span class="method post">POST</span><code>/api/auth</code><p>Validate credentials and issue a four-hour JWT.</p></article>
           <article class="endpoint"><span class="method get">GET</span><code>/api/users?from=0&amp;limit=5</code><p>List active users with pagination.</p></article>
           <article class="endpoint"><span class="method post">POST</span><code>/api/users</code><p>Create a user and encrypt the password.</p></article>
           <article class="endpoint"><span class="method put">PUT</span><code>/api/users/:id</code><p>Validate the MongoDB ID and update a user.</p></article>
           <article class="endpoint"><span class="method put">PATCH</span><code>/api/users/:id</code><p>Partially update the supplied user fields.</p></article>
-          <article class="endpoint"><span class="method delete">DELETE</span><code>/api/users/:id</code><p>Deactivate a user with a soft delete.</p></article>
+          <article class="endpoint"><span class="method delete">DELETE</span><code>/api/users/:id</code><p>Admin-only soft delete protected by a Bearer token.</p></article>
+        </div>
+      </section>
+      <section aria-labelledby="security-title">
+        <h2 class="section-title" id="security-title">Authentication pipeline</h2>
+        <p class="section-copy"><code>Bearer token → checkJWT → active user → haveRole("ADMIN_ROLE") → controller</code></p>
+        <div class="example-grid">
+          <article class="card"><h3>JWT authentication</h3><p>The middleware verifies the signature and payload, loads the user from MongoDB, rejects missing or inactive accounts, and exposes the document through <code>req.user</code>.</p></article>
+          <article class="card"><h3>Role authorization</h3><p>The reusable <code>haveRole(...roles)</code> middleware returns <code>403</code> when an authenticated user lacks the required role. Missing or invalid credentials return <code>401</code>.</p></article>
         </div>
       </section>
       <section aria-labelledby="request-title">
@@ -55,7 +64,7 @@
         <p class="section-copy"><code>Promise.all</code> runs the user query and total count concurrently. Because neither operation depends on the other, this reduces response time while keeping both results synchronized—and rejects the request if either operation fails.</p>
       </section>
     </main>
-    <footer><span>REST Server API</span><span>Express + TypeScript + Mongoose</span></footer>
+    <footer><span>REST Server API</span><span>Express + TypeScript + Mongoose + JWT</span></footer>
   </div>
 </body>
 </html>

@@ -2,12 +2,13 @@ import "colors";
 import express, { Application } from "express";
 import cors from "cors";
 import path from "node:path";
-import router from "../routes/users.ts";
-import { dbConnection } from "../database/config.ts";
+import { dbConnection } from "@database";
+import { auth, users } from "@routes";
 
 export default class Server {
   private readonly app: Application;
   private readonly port: string;
+  private readonly authPath = "/api/auth";
   private readonly usersPath = "/api/users";
 
   constructor() {
@@ -38,7 +39,8 @@ export default class Server {
   }
 
   routes() {
-    this.app.use(this.usersPath, router);
+    this.app.use(this.authPath, auth);
+    this.app.use(this.usersPath, users);
 
     // Register last so it only catches unknown routes.
     this.app.use((_req, res) => {

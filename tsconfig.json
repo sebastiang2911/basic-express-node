@@ -7,11 +7,19 @@
     "rewriteRelativeImportExtensions": true,
     "outDir": "dist",
     "rootDir": ".",
+    "paths": {
+      "@controllers": ["./controllers/index.ts"],
+      "@database": ["./database/index.ts"],
+      "@helpers": ["./helpers/index.ts"],
+      "@middlewares": ["./middlewares/index.ts"],
+      "@models": ["./models/index.ts"],
+      "@routes": ["./routes/index.ts"]
+    },
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "types/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

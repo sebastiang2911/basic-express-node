@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import bcryptjs from "bcryptjs";
-import User from "../models/user.ts";
+import { User } from "@models";
 
 export const getUsers: RequestHandler = async (req, res) => {
   const { limit = 5, from = 0 } = req.query;
@@ -74,9 +74,11 @@ export const deleteUsers: RequestHandler = async (req, res) => {
   // await User.findByIdAndDelete({ _id: id });
 
   const user = await User.findByIdAndUpdate(id, { state: false });
+  const userAuthenticated = req.user;
 
   res.json({
     message: "DELETE API - Controller",
-    id,
+    user,
+    userAuthenticated,
   });
 };

@@ -6,18 +6,23 @@ import {
   putUser,
   patchUsers,
   deleteUsers,
-} from "../controllers/users.ts";
-import { validateFields } from "../middlewares/validatate-fields.ts";
+} from "@controllers";
+import {
+  checkJWT,
+  haveRole,
+  // isAdminRole,
+  validateFields,
+} from "@middlewares";
 import {
   isValidRole,
   isEmailExist,
   isExistUserById,
-} from "../helpers/dbValidators.ts";
+} from "@helpers";
 
-const router = Router();
+const users = Router();
 
-router.get("/", getUsers);
-router.post(
+users.get("/", getUsers);
+users.post(
   "/",
   [
     check("email", "The email is invalid").isEmail(),
@@ -35,7 +40,7 @@ router.post(
   postUser,
 );
 
-router.put(
+users.put(
   "/:id",
   [
     check("id", "Its not valid ID").isMongoId().bail().custom(isExistUserById),
@@ -44,7 +49,7 @@ router.put(
   ],
   putUser,
 );
-router.patch(
+users.patch(
   "/:id",
   [
     check("id", "Its not valid ID").isMongoId().bail().custom(isExistUserById),
@@ -53,13 +58,16 @@ router.patch(
   ],
   patchUsers,
 );
-router.delete(
+users.delete(
   "/:id",
   [
+    checkJWT,
+    // isAdminRole,
+    haveRole("ADMIN_ROLE"),
     check("id", "Its not valid ID").isMongoId().bail().custom(isExistUserById),
     validateFields,
   ],
   deleteUsers,
 );
 
-export default router;
+export default users;
