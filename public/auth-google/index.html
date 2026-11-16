@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Google authentication" />
+    <title>REST Server | Google Auth</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <main class="auth-page">
+      <a class="back" href="/">← Volver</a>
+      <section class="auth-card" aria-labelledby="title">
+        <div class="heading">
+          <span class="google-mark" aria-hidden="true">G</span>
+          <div><p class="eyebrow">Google Identity Services</p><h1 id="title">Continúa con Google</h1></div>
+        </div>
+        <p class="lead">Accede de forma segura sin crear otra contraseña.</p>
+        <div id="g_id_onload" data-client_id="374990347467-sdmafhqukqree8hg5lsmusatchf0e3t1.apps.googleusercontent.com" data-auto_prompt="false" data-callback="handleGoogleCredential"></div>
+        <div id="google-signin" class="google-button"><div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="continue_with" data-size="large" data-width="320"></div></div>
+        <div id="google-account" class="account" hidden>
+          <img id="google-avatar" class="avatar" alt="" />
+          <div class="account-copy"><strong id="google-user-name"></strong><span id="google-user-email"></span></div>
+          <button id="google-signout" type="button">Cerrar sesión</button>
+        </div>
+        <p id="google-message" class="message" role="status" aria-live="polite"></p>
+        <a class="email-link" href="/auth/">Usar email y contraseña →</a>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>
