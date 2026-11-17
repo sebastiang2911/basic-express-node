@@ -1,1 +1,34 @@
-<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="REST Server demos"><title>REST Server | Demos</title><link rel="stylesheet" href="/styles.css"></head><body><main class="home"><p class="eyebrow">Node.js · Express · TypeScript</p><h1>REST Server</h1><p class="lead">Selecciona una implementación.</p><nav class="module-grid" aria-label="Demos disponibles"><a class="module-card" href="/services/"><span class="number">01</span><strong>Services</strong><small>GET, POST, PUT, PATCH y DELETE</small></a><a class="module-card" href="/auth/"><span class="number">02</span><strong>Auth</strong><small>Inicio de sesión con email y JWT</small></a><a class="module-card" href="/auth-google/"><span class="number">03</span><strong>Auth Google</strong><small>Google Identity Services</small></a></nav></main><script src="/app.js"></script></body></html>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="REST Server demos" />
+    <title>REST Server | Demos</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="home">
+      <header>
+        <p class="eyebrow">Node.js · Express · TypeScript</p>
+        <h1>REST Server</h1>
+        <p class="lead">Selecciona una implementación.</p>
+      </header>
+      <nav class="module-grid" aria-label="Demos disponibles">
+        <a class="module-card" href="/services/"><span class="number">01</span><strong>Services</strong><small>GET, POST, PUT, PATCH y DELETE</small></a>
+        <a class="module-card" href="/auth/"><span class="number">02</span><strong>Auth</strong><small>Inicio de sesión con email y JWT</small></a>
+        <a class="module-card" href="/auth-google/"><span class="number">03</span><strong>Auth Google</strong><small>Google Identity Services</small></a>
+      </nav>
+      <section class="api-services" aria-labelledby="api-services-title">
+        <p class="eyebrow">Nuevos servicios</p>
+        <h2 id="api-services-title">Explora la API</h2>
+        <div class="service-list">
+          <article class="service-card"><div><h3>Categorías</h3><code>/api/categories</code></div><p>Consulta categorías; crea, actualiza o elimina con JWT.</p><a href="/api/categories">Consultar</a></article>
+          <article class="service-card"><div><h3>Productos</h3><code>/api/products</code></div><p>Consulta productos; crea, actualiza o elimina con JWT.</p><a href="/api/products">Consultar</a></article>
+          <article class="service-card"><div><h3>Búsqueda</h3><code>/api/find/:collection/:term</code></div><p>Busca usuarios, categorías, productos o roles.</p><a href="/api/find/products/task">Probar búsqueda</a></article>
+        </div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

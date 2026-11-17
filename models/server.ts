@@ -3,13 +3,18 @@ import express, { Application } from "express";
 import cors from "cors";
 import path from "node:path";
 import { dbConnection } from "@database";
-import { auth, users } from "@routes";
+import { auth, categories, products, users, find } from "@routes";
 
 export default class Server {
   private readonly app: Application;
   private readonly port: string;
-  private readonly authPath = "/api/auth";
-  private readonly usersPath = "/api/users";
+  private readonly paths = {
+    auth: "/api/auth",
+    users: "/api/users",
+    categories: "/api/categories",
+    products: "/api/products",
+    find: "/api/find",
+  };
 
   constructor() {
     this.app = express();
@@ -39,8 +44,11 @@ export default class Server {
   }
 
   routes() {
-    this.app.use(this.authPath, auth);
-    this.app.use(this.usersPath, users);
+    this.app.use(this.paths.auth, auth);
+    this.app.use(this.paths.users, users);
+    this.app.use(this.paths.categories, categories);
+    this.app.use(this.paths.products, products);
+    this.app.use(this.paths.find, find);
 
     // Register last so it only catches unknown routes.
     this.app.use((_req, res) => {
