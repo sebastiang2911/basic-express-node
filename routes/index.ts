@@ -3,3 +3,4 @@ export { default as users } from "./users.ts";
 export { default as categories } from "./categories.ts";
 export { default as products } from "./products.ts";
 export { default as find } from "./find.ts";
+export { default as upload } from "./upload.ts";

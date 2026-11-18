@@ -22,3 +22,10 @@ export {
 } from "./products.ts";
 
 export { find } from "./find.ts";
+export {
+  loadFiles,
+  updateFiles,
+  showImage,
+  showImageByCloudinary,
+  updateImageCloudinary,
+} from "./upload.ts";

@@ -36,3 +36,15 @@ export const existProductById = async (id = "") => {
     throw new Error(`Product with ID ${id} does not exist`);
   }
 };
+
+export const collectionAllowed = (
+  collection = "",
+  collections: string[] = [],
+) => {
+  if (!collections.includes(collection)) {
+    throw new Error(
+      `Collection "${collection}" is not allowed. Allowed collections: ${collections.join(", ")}`,
+    );
+  }
+  return true;
+};

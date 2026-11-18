@@ -1,9 +1,10 @@
 import "colors";
 import express, { Application } from "express";
+import fileUpload from "express-fileupload";
 import cors from "cors";
 import path from "node:path";
 import { dbConnection } from "@database";
-import { auth, categories, products, users, find } from "@routes";
+import { auth, categories, products, users, find, upload } from "@routes";
 
 export default class Server {
   private readonly app: Application;
@@ -14,6 +15,7 @@ export default class Server {
     categories: "/api/categories",
     products: "/api/products",
     find: "/api/find",
+    upload: "/api/upload",
   };
 
   constructor() {
@@ -37,6 +39,14 @@ export default class Server {
     this.app.use(express.json());
     // Static Files
     this.app.use(express.static("public"));
+    // Fileupload - load files
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp/",
+        createParentPath: true,
+      }),
+    );
   }
 
   async connectDB() {
@@ -49,6 +59,7 @@ export default class Server {
     this.app.use(this.paths.categories, categories);
     this.app.use(this.paths.products, products);
     this.app.use(this.paths.find, find);
+    this.app.use(this.paths.upload, upload);
 
     // Register last so it only catches unknown routes.
     this.app.use((_req, res) => {
