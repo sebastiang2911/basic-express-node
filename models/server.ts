@@ -3,12 +3,16 @@ import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import path from "node:path";
+import { createServer, type Server as HttpServer } from "node:http";
+import { Server as SocketServer } from "socket.io";
 import { dbConnection } from "@database";
 import { auth, categories, products, users, find, upload } from "@routes";
 
 export default class Server {
   private readonly app: Application;
   private readonly port: string;
+  private readonly server: HttpServer;
+  private readonly io: SocketServer;
   private readonly paths = {
     auth: "/api/auth",
     users: "/api/users",
@@ -17,10 +21,15 @@ export default class Server {
     find: "/api/find",
     upload: "/api/upload",
   };
-
   constructor() {
     this.app = express();
     this.port = process.env.PORT ?? "8080";
+    this.server = createServer(this.app);
+    this.io = new SocketServer(this.server, {
+      cors: {
+        origin: "*",
+      },
+    });
 
     // Connect DB
     this.connectDB();
@@ -28,6 +37,8 @@ export default class Server {
     this.middlewares();
     //Routes
     this.routes();
+    //Sockets
+    this.sockets();
   }
 
   middlewares() {
@@ -67,8 +78,23 @@ export default class Server {
     });
   }
 
+  sockets() {
+    this.io.on("connection", (socket) => {
+      console.log(`Socket connected: ${socket.id}`);
+
+      socket.on("mensaje-cliente", (payload, callback) => {
+        console.log("Message received:", payload);
+        // callback({ ok: true, message: "Message received by the server" });
+      });
+
+      socket.on("disconnect", () => {
+        console.log(`Socket disconnected: ${socket.id}`.red);
+      });
+    });
+  }
+
   listen() {
-    this.app.listen(this.port, () => {
+    this.server.listen(this.port, () => {
       console.log(`Port listening in ${this.port}`.america);
     });
   }
