@@ -7,6 +7,7 @@ import { createServer, type Server as HttpServer } from "node:http";
 import { Server as SocketServer } from "socket.io";
 import { dbConnection } from "@database";
 import { auth, categories, products, users, find, upload } from "@routes";
+import { HandleTickets } from "../sockets/handle-tickets.ts";
 
 export default class Server {
   private readonly app: Application;
@@ -79,8 +80,11 @@ export default class Server {
   }
 
   sockets() {
+    const handleTickets = new HandleTickets(this.io);
+
     this.io.on("connection", (socket) => {
       console.log(`Socket connected: ${socket.id}`);
+      handleTickets.connect(socket);
 
       socket.on("mensaje-cliente", (payload, callback) => {
         console.log("Message received:", payload);
