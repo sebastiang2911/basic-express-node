@@ -8,6 +8,7 @@ import { Server as SocketServer } from "socket.io";
 import { dbConnection } from "@database";
 import { auth, categories, products, users, find, upload } from "@routes";
 import { HandleTickets } from "../sockets/handle-tickets.ts";
+import { HandleAuthSockets } from "../sockets/handle-auth.ts";
 
 export default class Server {
   private readonly app: Application;
@@ -81,6 +82,7 @@ export default class Server {
 
   sockets() {
     const handleTickets = new HandleTickets(this.io);
+    new HandleAuthSockets(this.io.of("/auth"));
 
     this.io.on("connection", (socket) => {
       console.log(`Socket connected: ${socket.id}`);
