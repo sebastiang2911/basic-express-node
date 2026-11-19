@@ -5,10 +5,20 @@ import cors from "cors";
 import path from "node:path";
 import { createServer, type Server as HttpServer } from "node:http";
 import { Server as SocketServer } from "socket.io";
-import { dbConnection } from "@database";
-import { auth, categories, products, users, find, upload } from "@routes";
+import { dbConnection, mysqlConnection } from "@database";
+import { MySqlUser } from "@models";
+import {
+  auth,
+  categories,
+  products,
+  users,
+  find,
+  upload,
+  mysqlUsers,
+} from "@routes";
 import { HandleTickets } from "../sockets/handle-tickets.ts";
 import { HandleAuthSockets } from "../sockets/handle-auth.ts";
+import { errorHandler } from "@middlewares";
 
 export default class Server {
   private readonly app: Application;
@@ -22,6 +32,7 @@ export default class Server {
     products: "/api/products",
     find: "/api/find",
     upload: "/api/upload",
+    mysqlUsers: "/api/mysql/users",
   };
   constructor() {
     this.app = express();
@@ -33,8 +44,6 @@ export default class Server {
       },
     });
 
-    // Connect DB
-    this.connectDB();
     //Middlewares
     this.middlewares();
     //Routes
@@ -63,7 +72,8 @@ export default class Server {
   }
 
   async connectDB() {
-    await dbConnection();
+    await Promise.all([dbConnection(), mysqlConnection()]);
+    await MySqlUser.sync();
   }
 
   routes() {
@@ -73,11 +83,14 @@ export default class Server {
     this.app.use(this.paths.products, products);
     this.app.use(this.paths.find, find);
     this.app.use(this.paths.upload, upload);
+    this.app.use(this.paths.mysqlUsers, mysqlUsers);
 
     // Register last so it only catches unknown routes.
     this.app.use((_req, res) => {
       res.status(404).sendFile(path.resolve("public/404.html"));
     });
+
+    this.app.use(errorHandler);
   }
 
   sockets() {
@@ -88,7 +101,7 @@ export default class Server {
       console.log(`Socket connected: ${socket.id}`);
       handleTickets.connect(socket);
 
-      socket.on("mensaje-cliente", (payload, callback) => {
+      socket.on("mensaje-cliente", (payload, _callback) => {
         console.log("Message received:", payload);
         // callback({ ok: true, message: "Message received by the server" });
       });
@@ -99,7 +112,9 @@ export default class Server {
     });
   }
 
-  listen() {
+  async listen(): Promise<void> {
+    await this.connectDB();
+
     this.server.listen(this.port, () => {
       console.log(`Port listening in ${this.port}`.america);
     });

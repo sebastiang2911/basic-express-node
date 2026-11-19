@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="TypeScript, Express, MySQL, and Sequelize learning module" />
+    <title>TypeScript and MySQL | REST Server</title>
+    <style>
+      :root{color-scheme:dark;--bg:#07111f;--surface:#0f1d31;--soft:#13243c;--line:#263852;--text:#f5f7fb;--muted:#9eabc0;--green:#62e6bd;--blue:#77a9ff;--orange:#ffb86b}*{box-sizing:border-box}body{min-height:100vh;margin:0;padding:30px 24px 64px;background:radial-gradient(circle at 12% 8%,#183765,transparent 32rem),radial-gradient(circle at 88% 84%,#45301b,transparent 30rem),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}.shell{width:min(1060px,100%);margin:auto}nav{margin-bottom:68px}nav a{color:var(--text);font-weight:800;text-decoration:none}.eyebrow{margin:0 0 14px;color:var(--green);font-size:.76rem;font-weight:850;letter-spacing:.14em;text-transform:uppercase}h1{max-width:900px;margin:0;font-size:clamp(3.2rem,9vw,7rem);letter-spacing:-.065em;line-height:.92}.lead{max-width:760px;margin:30px 0 44px;color:var(--muted);font-size:1.15rem;line-height:1.7}.pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}.step{position:relative;min-height:190px;padding:22px;border:1px solid var(--line);border-radius:18px;background:rgb(15 29 49/.9)}.step::after{content:'→';position:absolute;z-index:2;top:50%;right:-20px;color:var(--green);font-size:24px;font-weight:900}.step:last-child::after{display:none}.number{color:var(--green);font:800 .72rem ui-monospace,monospace}.step h2{margin:38px 0 9px;font-size:1.2rem}.step p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.55}.workspace{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.card{padding:28px;border:1px solid var(--line);border-radius:20px;background:rgb(15 29 49/.88);box-shadow:0 24px 60px #0003}.card h2{margin:0 0 20px}.routes{display:grid;gap:9px;margin:0;padding:0;list-style:none}.routes li{display:grid;grid-template-columns:70px 1fr;gap:12px;padding:13px;border:1px solid var(--line);border-radius:11px;background:var(--soft)}.method{color:var(--blue);font:800 .78rem ui-monospace,monospace}.routes code{color:var(--text)}.requirements{display:grid;gap:13px;margin:0;padding:0;list-style:none}.requirements li{padding-left:18px;border-left:3px solid var(--orange);color:var(--muted);line-height:1.5}.requirements strong{display:block;color:var(--text);margin-bottom:3px}.status{display:inline-block;margin-top:24px;padding:8px 11px;border-radius:99px;background:#ffb86b18;color:var(--orange);font-size:.75rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em}@media(max-width:800px){.pipeline{grid-template-columns:1fr 1fr}.step::after{display:none}.workspace{grid-template-columns:1fr}}@media(max-width:520px){body{padding-inline:16px}.pipeline{grid-template-columns:1fr}}
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <nav><a href="/">← REST Server</a></nav>
+      <header>
+        <p class="eyebrow">Backend development · Learning module</p>
+        <h1>TypeScript, MySQL &amp; Sequelize</h1>
+        <p class="lead">Learn how a typed Node.js project becomes a complete REST API connected to MySQL through Sequelize.</p>
+      </header>
+
+      <section class="pipeline" aria-label="Module topics">
+        <article class="step"><span class="number">01</span><h2>Create with TypeScript</h2><p>Initialize the project, configure the compiler, and use strict types.</p></article>
+        <article class="step"><span class="number">02</span><h2>Configure Express</h2><p>Build the server, middleware, routes, controllers, and typed requests.</p></article>
+        <article class="step"><span class="number">03</span><h2>Connect to MySQL</h2><p>Configure credentials, open the connection, and verify database health.</p></article>
+        <article class="step"><span class="number">04</span><h2>CRUD with Sequelize</h2><p>Define models and create, read, update, and delete records.</p></article>
+      </section>
+
+      <section class="workspace">
+        <article class="card">
+          <h2>CRUD route map</h2>
+          <ul class="routes">
+            <li><span class="method">GET</span><code>/api/mysql/users</code></li>
+            <li><span class="method">GET</span><code>/api/mysql/users/:id</code></li>
+            <li><span class="method">POST</span><code>/api/mysql/users</code></li>
+            <li><span class="method">PUT</span><code>/api/mysql/users/:id</code></li>
+            <li><span class="method">DELETE</span><code>/api/mysql/users/:id</code></li>
+          </ul>
+        </article>
+        <aside class="card">
+          <h2>Required setup</h2>
+          <ul class="requirements">
+            <li><strong>Dependencies</strong><code>sequelize</code> and <code>mysql2</code></li>
+            <li><strong>Environment</strong>Host, port, database, user, and password</li>
+            <li><strong>MySQL server</strong>A running database accessible by Node.js</li>
+          </ul>
+          <span class="status">Database setup required</span>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

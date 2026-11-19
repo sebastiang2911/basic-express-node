@@ -1,6 +1,6 @@
 # REST Server
 
-User-management REST API built with Node.js, Express, TypeScript, MongoDB, and Mongoose.
+User-management REST API built with Node.js, Express, TypeScript, MongoDB, Mongoose, and MySQL.
 
 Features:
 
@@ -37,6 +37,11 @@ Create `.env` from the included example:
 PORT=8080
 MONGODB_CNN=mongodb://127.0.0.1:27017/restserver
 SECRETORPRIVATEKEY=replace_with_a_secure_secret
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_DATABASE=node_mysql
+MYSQL_USER=restserver_user
+MYSQL_PASSWORD=replace_with_your_mysql_password
 ```
 
 Start the development server:
@@ -59,6 +64,11 @@ Base URL: `http://localhost:8080/api`
 | `PUT` | `/api/users/:id` | Update an existing user |
 | `PATCH` | `/api/users/:id` | Partially update an existing user |
 | `DELETE` | `/api/users/:id` | Soft-delete a user; requires `ADMIN_ROLE` |
+| `GET` | `/api/mysql/users` | List MySQL users |
+| `GET` | `/api/mysql/users/:id` | Get one MySQL user |
+| `POST` | `/api/mysql/users` | Create a MySQL user |
+| `PUT` | `/api/mysql/users/:id` | Update a MySQL user |
+| `DELETE` | `/api/mysql/users/:id` | Delete a MySQL user |
 
 The `PUT`, `PATCH`, and `DELETE` routes require a valid MongoDB ObjectId belonging to an existing user.
 

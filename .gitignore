@@ -4,3 +4,4 @@
 
 uploads/products/**.*
 uploads/users/**.*
+database/tickets.json

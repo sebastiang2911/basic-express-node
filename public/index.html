@@ -21,6 +21,7 @@
         <a class="module-card" href="/socket/"><span class="number">04</span><strong>Socket.IO</strong><small>Real-time communication</small></a>
         <a class="module-card" href="/queue/"><span class="number">05</span><strong>Ticket Queue</strong><small>Real-time ticket management</small></a>
         <a class="module-card" href="/socket-auth/"><span class="number">06</span><strong>Socket Authentication</strong><small>JWT, rooms, and private messages</small></a>
+        <a class="module-card" href="/typescript-mysql/"><span class="number">07</span><strong>TypeScript + MySQL</strong><small>Express and CRUD with Sequelize</small></a>
       </nav>
       <section class="api-services" aria-labelledby="api-services-title">
         <p class="eyebrow">Nuevos servicios</p>
@@ -30,6 +31,36 @@
           <article class="service-card"><div><h3>Productos</h3><code>/api/products</code></div><p>Consulta productos; crea, actualiza o elimina con JWT.</p><a href="/api/products">Consultar</a></article>
           <article class="service-card"><div><h3>Búsqueda</h3><code>/api/find/:collection/:term</code></div><p>Busca usuarios, categorías, productos o roles.</p><a href="/api/find/products/task">Probar búsqueda</a></article>
           <article class="service-card"><div><h3>Imágenes · Cloudinary</h3><code>PUT · GET /api/upload/:collection/:id</code></div><p>Actualiza y consulta imágenes de usuarios o productos almacenadas en Cloudinary.</p><a href="/services/">Gestionar</a></article>
+        </div>
+      </section>
+      <section class="mysql-crud" aria-labelledby="mysql-crud-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MySQL · Sequelize</p>
+            <h2 id="mysql-crud-title">Usuarios</h2>
+          </div>
+          <button class="secondary-button" id="mysql-refresh" type="button">Actualizar</button>
+        </div>
+
+        <div class="mysql-layout">
+          <form class="user-form" id="mysql-user-form">
+            <input id="mysql-user-id" type="hidden" />
+            <h3 id="mysql-form-title">Crear usuario</h3>
+            <label for="mysql-user-name">Nombre</label>
+            <input id="mysql-user-name" name="name" type="text" maxlength="255" autocomplete="name" required />
+            <label for="mysql-user-email">Email</label>
+            <input id="mysql-user-email" name="email" type="email" maxlength="255" autocomplete="email" required />
+            <p class="form-message" id="mysql-form-message" role="status" aria-live="polite"></p>
+            <div class="form-actions">
+              <button class="primary-button" id="mysql-submit" type="submit">Guardar</button>
+              <button class="secondary-button" id="mysql-cancel" type="button" hidden>Cancelar</button>
+            </div>
+          </form>
+
+          <div class="users-panel">
+            <div class="users-status" id="mysql-users-status" role="status" aria-live="polite">Cargando usuarios…</div>
+            <div class="users-list" id="mysql-users-list"></div>
+          </div>
         </div>
       </section>
     </main>
